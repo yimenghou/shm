@@ -12,7 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED)
+find_package(Boost 1.65 REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -118,10 +118,15 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(shm src/client.cpp)
-target_link_libraries(shm
+add_executable(shm_recv src/receiver.cpp)
+target_link_libraries(shm_recv
   ${catkin_LIBRARIES}
-  # ${Boost_LIBRARIES}
+  rt
+)
+
+add_executable(shm_send src/sender.cpp)
+target_link_libraries(shm_send
+  ${catkin_LIBRARIES}
   rt
 )
 

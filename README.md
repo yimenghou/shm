@@ -1,2 +1,0 @@
-# shm
-share memory library
