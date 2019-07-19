@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(shm)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++14)
+add_compile_options(-std=c++17)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -126,6 +126,30 @@ target_link_libraries(shm_recv
 
 add_executable(shm_send src/sender.cpp)
 target_link_libraries(shm_send
+  ${catkin_LIBRARIES}
+  rt
+)
+
+add_executable(shm src/main.cpp)
+target_link_libraries(shm
+  ${catkin_LIBRARIES}
+  rt
+)
+
+add_executable(shm_container_recv src/main_shm_container_recv.cpp)
+target_link_libraries(shm_container_recv
+  ${catkin_LIBRARIES}
+  rt
+)
+
+add_executable(shm_container_send src/main_shm_container_send.cpp)
+target_link_libraries(shm_container_send
+  ${catkin_LIBRARIES}
+  rt
+)
+
+add_executable(shm_vector src/shm_vector.cpp)
+target_link_libraries(shm_vector
   ${catkin_LIBRARIES}
   rt
 )

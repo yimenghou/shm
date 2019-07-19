@@ -49,14 +49,14 @@ public:
     return static_cast<char*>(shm_reg_->get_address());
   }
 
-  inline bool write(const char* data) {
+  inline void write(const char* data) {
     char* mem = read();
     for(std::size_t i = 0; i < shm_reg_->get_size(); ++i) {
       *(mem+i) = *(data+i); 
     }
   }
 
-  inline bool write(const std::string& data) {
+  inline void write(const std::string& data) {
     const char *cstr = data.c_str();
     char* mem = read();
     for(std::size_t i = 0; i < shm_reg_->get_size(); ++i) {
@@ -65,7 +65,7 @@ public:
   }
 
   template<typename T>
-  inline bool write(const typename std::enable_if<is_stl_container<T>::value, T>::type& data) {
+  inline void write(const typename std::enable_if<is_stl_container<T>::value, T>::type& data) {
     using mem_t = typename T::value_type;
     static_assert(std::is_arithmetic<mem_t>::value);
     size_t ci = 0;
@@ -77,6 +77,7 @@ public:
       for(int i = 0; i < strlen(cstr); ++i) {
         *(mem + ci++) = *(cstr+i);
       }
+      std::cout << "lalala" << std::endl;
     }
   }
 
